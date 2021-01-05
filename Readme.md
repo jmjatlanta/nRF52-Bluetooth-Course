@@ -1,11 +1,11 @@
 nRF52 Bluetooth Course 
 -------
 
-This repository contains the hands-on exercises for the nRF52 Bluetooth Course . At the end of the course you should be able to create your own custom service with a custom  characteristic in the ble_app_template project found in the Nordic nRF5 SDK v15.0.0. 
+This repository contains the hands-on exercises for the nRF52 Bluetooth Course . At the end of the course you should be able to create your own custom service with a custom  characteristic in the ble_app_template project found in the Nordic nRF5 SDK v17.0.2. 
 
 The aim of this tutorial is simply to create one service with one characteristic without too much theory in between the steps. There are no .c or .h files that needs to be downloaded as we will be starting from scratch in the ble_app_template project. 
 
-However, if you simply want to compile the example without following the course steps then you can be clone this repo into SDK v15.0.0/examples/ble_peripheral. 
+However, if you simply want to compile the example without following the course steps then you can be clone this repo into SDK v17.0.2/examples/ble_peripheral. 
 
 
 <!---
@@ -27,21 +27,21 @@ The evaluation is of course anonymous.
 ## Presentations
 The presentations from the course can be downloaded in PDF-format using the links below:
 
-[Nordic Introduction](https://github.com/bjornspockeli/custom_ble_service_example/blob/master/pdf/01_Nordic_Company_Introduction.pdf)
+[Nordic Introduction](/pdf/01_Nordic_Company_Introduction.pdf)
 
-[nRF52832 Intro + Embedded C Intro](https://github.com/NordicPlayground/nRF52-Bluetooth-Course/blob/master/pdf/02_nRF52%20Student_%20Intro_v0.1.pdf)
+[nRF52832 Intro + Embedded C Intro](/pdf/02_nRF52%20Student_%20Intro_v0.1.pdf)
 
-[Bluetooth Low Energy Protocol](https://github.com/NordicPlayground/nRF52-Bluetooth-Course/blob/master/pdf/03_Bluetooth%20Overview.pdf)
+[Bluetooth Low Energy Protocol](/pdf/03_Bluetooth%20Overview.pdf)
 
-[SoftDevice Introduction](https://github.com/NordicPlayground/nRF52-Bluetooth-Course/blob/master/pdf/04_Softdevice_Student_Introduction_v0.1.pdf)
+[SoftDevice Introduction](/pdf/04_Softdevice_Student_Introduction_v0.1.pdf)
 
 
 ## HW Requirements
 - nRF52 Development Kit 
 
 ## SW Requirements
-- nRF5 SDK v15.0.0 [download page](http://developer.nordicsemi.com/nRF5_SDK/nRF5_SDK_v15.x.x/)
-- Latest version of Segger Embedded Studio[download page](https://www.segger.com/downloads/embedded-studio/) or latest version of Keil ARM MKD [download page](https://www.keil.com/demo/eval/arm.htm) or the GCC ARM Embedded 6.3 2017-q2-update toolchain [download page](https://developer.arm.com/open-source/gnu-toolchain/gnu-rm/downloads/6-2017-q2-update)
+- nRF5 SDK v17.0.2 [download page](http://developer.nordicsemi.com/nRF5_SDK/nRF5_SDK_v17.x.x/)
+- Latest version of Segger Embedded Studio [download page](https://www.segger.com/downloads/embedded-studio/) or latest version of Keil ARM MKD [download page](https://www.keil.com/demo/eval/arm.htm) or the GCC ARM Embedded 10-2020-q4-major toolchain [download page](https://developer.arm.com/tools-and-software/open-source-software/developer-tools/gnu-toolchain/gnu-rm/downloads)
 - nRF Connect for Mobile, [download page](https://www.nordicsemi.com/eng/Products/Nordic-mobile-Apps/nRF-Connect-for-mobile-previously-called-nRF-Master-Control-Panel)
 - nRF Command Line Tools [download page](http://infocenter.nordicsemi.com/topic/com.nordic.infocenter.tools/dita/tools/nrf5x_command_line_tools/nrf5x_installation.html?cp=5_1_1)
 
@@ -65,9 +65,9 @@ Nordic Semiconductor added Segger Embedded Studio support in SDK v14.1.0 and the
 [link to webpage](www.google.com)
 --->
 ### Step 1 - Getting started  
-1. Download nRF5_SDK_15.0.0_17b948a from the [download page](http://developer.nordicsemi.com/nRF5_SDK/nRF5_SDK_v15.x.x/) and extract the zip to your drive, e.g. C:\NordicSemi\nRF5_SDK_15.0.0_a53641a.
+1. Download nRF5_SDK_17.0.2 from the [download page](http://developer.nordicsemi.com/nRF5_SDK/nRF5_SDK_v17.x.x/) and extract the zip to your drive, e.g. $HOME/NordicSemi/nRF5_SDK_17.0.2_d674dde
 
-2. Navigate to the nRF5_SDK_15.0.0_a53641a/examples/ble_peripheral folder and find the ble_app_template project folder.
+2. Navigate to the nRF5_SDK_17.0.2_d674dde/examples/ble_peripheral folder and find the ble_app_template project folder.
 
 3. Create a copy of the folder and name it `custom_ble_service_example`.
 
@@ -123,7 +123,7 @@ First things first, we need to include the ble_cus.h header file we just created
 #include "nrf_log.h"
 ```
 
-The next step is to add a macro for defining a Custom Service(ble_cus) instance by adding the following snippet below the includes in ble_cus.h
+The next step is to add a macro for defining a Custom Service (ble_cus) instance by adding the following snippet below the includes in ble_cus.h
 
 ```c
 /* This code belongs in ble_cus.h*/
@@ -193,7 +193,7 @@ static ble_cus_t _name;                                                         
 
 ```
 
-The first function we're going to implement is ble_cus_init function, which we're going to initialize our service with. First, we need to do is to add its function decleration in the ble_cus.h file. 
+The first function we're going to implement is ble_cus_init function, which we're going to initialize our service with. First, we need to  add its function decleration in the ble_cus.h file. 
 
 ```c
 /* This code belongs in ble_cus.h*/
@@ -235,7 +235,7 @@ After verifying that the pointers are valid we can initialize the Custom Service
 p_cus->conn_handle               = BLE_CONN_HANDLE_INVALID;
 ```
 
-This consists of setting the connection handle to invalid( should only be valid when we're in a connection). Next, we're going to add our custom (also referred to as vendor specific) base UUID to the BLE stack's table.
+This consists of setting the connection handle to invalid (should only be valid when we're in a connection). Next, we're going to add our custom (also referred to as vendor specific) base UUID to the BLE stack's table.
 
 ```c
 /* This code belongs in ble_cus_init() ble_cus.c*/
@@ -249,7 +249,7 @@ ble_uuid.type = p_cus->uuid_type;
 ble_uuid.uuid = CUSTOM_SERVICE_UUID;
 ```
 
-We're almost done, the last thing we have to do is to add the Custom Service decleration to the BLE Stack's GATT table. 
+We're almost done, the last thing we have to do is to add the Custom Service decleration to the BLE Stack's GATT table, and return any code. 
 
 ```c
 /* This code belongs in ble_cus_init() in ble_cus.c*/
@@ -257,9 +257,9 @@ We're almost done, the last thing we have to do is to add the Custom Service dec
 // Add the Custom Service
 err_code = sd_ble_gatts_service_add(BLE_GATTS_SRVC_TYPE_PRIMARY, &ble_uuid, &p_cus->service_handle);
 if (err_code != NRF_SUCCESS)
-{
-    return err_code;
-}
+VERIFY_SUCCESS(err_code);
+
+return err_code;
 ```
 
 If you have followed the steps correctly, then ble_cus_init should look like this.
@@ -436,6 +436,14 @@ MEMORY
   FLASH (rx) : ORIGIN = 0x26000, LENGTH = 0x5a000
   RAM (rwx) :  ORIGIN = 0x20002220, LENGTH = 0xdde0
 }
+```
+
+You will also need to modify the Makefile to include your new ble_cus.c file as shown below.
+```
+  $(SDK_ROOT)/components/libraries/bsp/bsp_btn_ble.c \
+  $(PROJ_DIR)/main.c \
+  $(PROJ_DIR)/ble_cus.c \ 
+  $(SDK_ROOT)/external/segger_rtt/SEGGER_RTT.c \
 ```
 
 **Segger Embedded Studio(SES):** Click "Project -> Edit Options", select the Common Configuration, then select Linker and then open the Section Placement Macros Section abd modify RAM_START IRAM1 to 0x20002220 and RAM_SIZE to 0xDDE0, as shown in the screenshot below
